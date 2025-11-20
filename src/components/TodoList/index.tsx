@@ -3,6 +3,7 @@ import { themeConfig } from "../../contexts/theme";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import type { Todo } from "../../hooks/useTodo";
 import IconCheck from "/images/icon-check.svg";
+import IconX from "/images/icon-cross.svg";
 
 interface TodoListProps {
   todoList: Todo[];
@@ -10,6 +11,7 @@ interface TodoListProps {
   setFilter: (filter: "all" | "active" | "completed") => void;
   filter: "all" | "active" | "completed";
   clearCompleted: () => void;
+  deleteTodoItem: (id: number) => void;
 }
 
 const TodoList = ({
@@ -18,6 +20,7 @@ const TodoList = ({
   setFilter,
   filter,
   clearCompleted,
+  deleteTodoItem,
 }: TodoListProps) => {
   const { theme } = useContext(ThemeContext);
 
@@ -27,7 +30,7 @@ const TodoList = ({
         <ul>
           {todoList.map((todo) => (
             <li
-              className={`p-6 border-b ${themeConfig[theme].todo.borderColor}`}
+              className={`p-6 border-b ${themeConfig[theme].todo.borderColor} flex justify-between`}
               key={todo.id}
             >
               <div className="flex items-center gap-4">
@@ -62,6 +65,13 @@ const TodoList = ({
                   {todo.text}
                 </p>
               </div>
+              <button onClick={() => deleteTodoItem(todo.id)}>
+                <img
+                  src={IconX}
+                  alt="Remover Item da Lista"
+                  className="h-6 w-6 cursor-pointer"
+                />
+              </button>
             </li>
           ))}
         </ul>

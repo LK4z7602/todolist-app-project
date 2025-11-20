@@ -58,6 +58,11 @@ export const useTodo = () => {
   const clearCompleted = () => {
     setTodoList((prev) => prev.filter((todo) => !todo.completed));
   };
+
+  const deleteTodoItem = (id: number) => {
+    setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+  }
+
   return {
     addTodo,
     toggleTodoCompleted,
@@ -65,5 +70,6 @@ export const useTodo = () => {
     clearCompleted,
     setFilter,
     filter,
+    deleteTodoItem,
   };
 };
